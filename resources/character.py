@@ -1,4 +1,5 @@
 import pygame
+from pygame.locals import *
 
 # https://www.pygame.org/docs/ref/sprite.html#pygame.sprite.Sprite
 class Character(pygame.sprite.Sprite):
@@ -23,4 +24,17 @@ class Hero(Character):
     def __init__(self,  life):
         super().__init__([255, 0, 0],  5,  5)
         self.life = life
+        self.speed = 5
         
+    def move(self):
+        pygame.event.pump() # internally process pygame event handlers
+        key=pygame.key.get_pressed()  #checking pressed keys
+        if key[pygame.K_LEFT]:
+            self.rect.move_ip(-self.speed, 0)
+        if key[pygame.K_RIGHT]:
+            self.rect.move_ip(self.speed, 0)
+        if key[pygame.K_UP]:
+            self.rect.move_ip(0, -self.speed)
+        if key[pygame.K_DOWN]:
+            self.rect.move_ip(0, self.speed)
+            
