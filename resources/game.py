@@ -19,7 +19,7 @@ def game():
     hero_group.add(hero)
     
     hero_group.draw(DISPLAYSURF) # draw hero_group onto display Surface
-    #pygame.display.update(hero.rect) # Update portions (rect or rect list) of the screen
+    pygame.display.update()
     
     while True: # main game loop
         for event in pygame.event.get():
@@ -31,6 +31,6 @@ def game():
         hero.move()
         # pygame.event.pump() # internally process pygame event handlers
         hero_group.draw(DISPLAYSURF) # draw hero_group onto display Surface
-        pygame.display.update()
+        pygame.display.update(hero.rect) # Update portions (rect or rect list) of the screen
         fpsClock.tick(FPS)
         
