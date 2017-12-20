@@ -1,6 +1,7 @@
 import pygame,  sys
 from pygame.locals import *
 import resources.character as character
+import resources.tile_manager as tile_manager
 from resources import *
 
 def game():
@@ -28,6 +29,7 @@ def game():
         hero.move()
         # pygame.event.pump() # internally process pygame event handlers
         hero_group.draw(DISPLAYSURF) # draw hero_group onto display Surface
-        pygame.display.update(hero.rect) # Update portions (rect or rect list) of the screen
+        tile_manager.render_tiles_to_screen(MAP,  DISPLAYSURF)
+        pygame.display.update()
         fpsClock.tick(FPS)
         
