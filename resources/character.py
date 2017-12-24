@@ -1,5 +1,4 @@
 import pygame
-from pygame.locals import *
 
 # https://www.pygame.org/docs/ref/sprite.html#pygame.sprite.Sprite
 class Character(pygame.sprite.Sprite):
@@ -22,19 +21,52 @@ class Character(pygame.sprite.Sprite):
  
 class Hero(Character):
     def __init__(self,  life):
-        super().__init__([255, 0, 0],  5,  5)
+        super().__init__([255, 0, 0], 5, 5)
         self.life = life
-        self.speed = 1
+        self.x = self.rect.x
+        self.x = 352
+        self.y = self.rect.y
+        self.y = 288
+        self.speed = 5
+        self.dx = 0
+        self.dy = 0
         
-    def move(self):
+    def move(self, collidant = pygame.sprite.Group()):
+        """move the hero"""
+        
         pygame.event.pump() # internally process pygame event handlers
         key=pygame.key.get_pressed()  #checking pressed keys
         if key[pygame.K_LEFT]:
+            self.dx = -self.speed
             self.rect.move_ip(-self.speed, 0)
         if key[pygame.K_RIGHT]:
+            self.dx = +self.speed
             self.rect.move_ip(self.speed, 0)
         if key[pygame.K_UP]:
+            self.dy = -self.speed
             self.rect.move_ip(0, -self.speed)
         if key[pygame.K_DOWN]:
+            self.dy = +self.speed
             self.rect.move_ip(0, self.speed)
             
+        self.collision(collidant)
+            
+    def collision(self,  collidant = pygame.sprite.Group()):
+        """check for collision against pygame.sprite.Group()"""
+        
+        collision_list = pygame.sprite.spritecollide(self,  collidant,  False)
+        
+        if collision_list:
+            for collision in collision_list:
+                # left collision
+                if self.dx < 0:
+                    self.rect.left = collision.rect.right
+                # right collision
+                if self.dx > 0:
+                    self.rect.right = collision.rect.left
+                # top collision
+                if self.dy < 0:
+                    self.rect.top = collision.rect.bottom
+                # bottom collision
+                if self.dy > 0:
+                    self.rect.bottom = collision.rect.top

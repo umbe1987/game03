@@ -31,11 +31,9 @@ def game():
                 pygame.quit()
                 sys.exit()
                 
-        hero.move()
-        collision = pygame.sprite.spritecollide(hero, level.blocks,  False)
+        hero.move(level.blocks)
+        #collision = pygame.sprite.spritecollide(hero, level.blocks,  False)
         
-        if collision:
-            print('COLLISION!')
         # pygame.event.pump() # internally process pygame event handlers
         hero_group.draw(DISPLAYSURF) # draw hero_group onto display Surface
         pygame.display.update(hero.rect) # Update portions (rect or rect list) of the screen
