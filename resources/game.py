@@ -12,8 +12,10 @@ def game():
     pygame.display.set_caption(TITLE) # set the title in the caption
     
     DISPLAYSURF = pygame.display.set_mode(SCREEN_SIZE)
-    # draw Tiled map (.tmx) onto screen and get blocks and background
-    blocks,  background = tile_manager.manage_tiles(MAP,  DISPLAYSURF)
+    # draw Tiled map (.tmx) onto screen
+    tile_manager.render_tiles(MAP,  DISPLAYSURF)
+    # get blocks and background tiles from Tiled in two distict pygame groups
+    level = tile_manager.Level(MAP)
     hero = character.Hero(12) # instance of Hero character
     hero_group = pygame.sprite.Group()
     hero_group.add(hero)
