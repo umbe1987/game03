@@ -16,8 +16,8 @@ def game():
     tile_manager.render_tiles(MAP,  DISPLAYSURF)
     # get blocks and background tiles from Tiled in two distict pygame groups
     level = tile_manager.Level(MAP)
-    pygame.display.update()
-    hero = character.Hero(12) # instance of Hero character
+    # instance of Hero character
+    hero = character.Hero(12)
     hero_group = pygame.sprite.Group()
     hero_group.add(hero)
     

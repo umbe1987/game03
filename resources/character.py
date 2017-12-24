@@ -24,7 +24,7 @@ class Hero(Character):
     def __init__(self,  life):
         super().__init__([255, 0, 0],  5,  5)
         self.life = life
-        self.speed = 5
+        self.speed = 1
         
     def move(self):
         pygame.event.pump() # internally process pygame event handlers
