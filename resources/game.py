@@ -16,6 +16,7 @@ def game():
     tile_manager.render_tiles(MAP,  DISPLAYSURF)
     # get blocks and background tiles from Tiled in two distict pygame groups
     level = tile_manager.Level(MAP)
+    pygame.display.update()
     hero = character.Hero(12) # instance of Hero character
     hero_group = pygame.sprite.Group()
     hero_group.add(hero)
@@ -31,6 +32,10 @@ def game():
                 sys.exit()
                 
         hero.move()
+        collision = pygame.sprite.spritecollide(hero, level.blocks,  False)
+        
+        if collision:
+            print('COLLISION!')
         # pygame.event.pump() # internally process pygame event handlers
         hero_group.draw(DISPLAYSURF) # draw hero_group onto display Surface
         pygame.display.update(hero.rect) # Update portions (rect or rect list) of the screen
