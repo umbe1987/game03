@@ -23,16 +23,15 @@ class Hero(Character):
     def __init__(self,  life):
         super().__init__([255, 0, 0], 5, 5)
         self.life = life
-        self.x = self.rect.x
-        self.x = 352
-        self.y = self.rect.y
-        self.y = 288
         self.speed = 5
         self.dx = 0
         self.dy = 0
         
     def move(self, collidant = pygame.sprite.Group()):
         """move the hero"""
+        
+        self.dx = 0
+        self.dy = 0
         
         pygame.event.pump() # internally process pygame event handlers
         key=pygame.key.get_pressed()  #checking pressed keys
