@@ -1,11 +1,18 @@
 import pytmx,  pygame
 from pytmx.util_pygame import load_pygame
+from resources import *
 
 # adapted from https://www.reddit.com/r/pygame/comments/2oxixc/pytmx_tiled/cmrvgz4/
 def render_tiles(filename,  screen):
     tmx_data = load_pygame(filename)
+    
+    # if Tiled map has no background color set, make it black
+    background_color = (0, 0, 0)
+    screen.fill(background_color)
+    
     if tmx_data.background_color:
-        screen.fill(pygame.Color(tmx_data.background_color))
+        background_color = pygame.Color(tmx_data.background_color)
+        screen.fill(background_color)
 
     # iterate over all the visible layers, then draw them
     # according to the type of layer they are.
@@ -32,7 +39,7 @@ def render_tiles(filename,  screen):
             if layer.image:
                 screen.blit(layer.image, (0, 0))
                 
-    return
+    return background_color
 
 class Level(pygame.sprite.Sprite):
     """Level composed either by blocks (collidant) and background
