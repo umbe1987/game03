@@ -11,11 +11,7 @@ def game():
     fpsClock = pygame.time.Clock()
     pygame.display.set_caption(TITLE) # set the title in the caption
     
-    DISPLAYSURF = pygame.display.set_mode(SCREEN_SIZE)
-    # draw Tiled map (.tmx) onto screen
-    background_color = tile_manager.render_tiles(MAP,  DISPLAYSURF)
-    background_surf = pygame.Surface((32, 32))
-    background_surf.fill(background_color)
+    # draw Tiled map (.tmx) onto screen and retain background sprite
     # get blocks and background tiles from Tiled in two distict pygame groups
     level = tile_manager.Level(MAP)
     # instance of Hero character
@@ -36,17 +32,9 @@ def game():
         # list to store dirty_rects (argument for pygame.display.update())
         dirty_rects = []
         
-        # check if hero is overlapping level.background
-        background_overlap = pygame.sprite.groupcollide(hero_group,  level.background, False, False)
-        
-        # if hero is overlaping level.background, blit it on hero position, otherwise blit background_color
         hero_pos = hero.rect.copy() # store hero position before moving
-        if background_overlap:
-            background_sprite = list(background_overlap.values())[0][0] # 32x32 tile
-            DISPLAYSURF.blit(background_sprite.image, background_sprite.rect)
-        else:
-            DISPLAYSURF.blit(background_surf, background_surf.get_rect())
-            
+        DISPLAYSURF.blit(level.background.image, hero_pos, hero_pos)
+        
         dirty_rects.append(hero_pos)
         
         hero.move(level.blocks)

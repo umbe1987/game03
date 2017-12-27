@@ -21,7 +21,7 @@ class Character(pygame.sprite.Sprite):
  
 class Hero(Character):
     def __init__(self,  life):
-        super().__init__([255, 0, 0], 5, 5)
+        super().__init__([255, 0, 0], 32, 32)
         self.life = life
         self.speed = 5
         self.dx = 0

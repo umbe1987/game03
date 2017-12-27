@@ -2,56 +2,25 @@ import pytmx,  pygame
 from pytmx.util_pygame import load_pygame
 from resources import *
 
-# adapted from https://www.reddit.com/r/pygame/comments/2oxixc/pytmx_tiled/cmrvgz4/
-def render_tiles(filename,  screen):
-    tmx_data = load_pygame(filename)
-    
-    # if Tiled map has no background color set, make it black
-    background_color = (0, 0, 0)
-    screen.fill(background_color)
-    
-    if tmx_data.background_color:
-        background_color = pygame.Color(tmx_data.background_color)
-        screen.fill(background_color)
-
-    # iterate over all the visible layers, then draw them
-    # according to the type of layer they are.
-    for i, layer in enumerate(tmx_data.visible_layers):
-
-        # draw map tile layers
-        if isinstance(layer, pytmx.TiledTileLayer):
-            # iterate over the tiles in the layer
-            for x, y, image in layer.tiles():
-                screen.blit(image, (x * tmx_data.tilewidth, y * tmx_data.tileheight))
-                    
-        # draw object layers
-        elif isinstance(layer, pytmx.TiledObjectGroup):
-
-            # iterate over all the objects in the layer
-            for obj in layer:
-
-                # some object have an image
-                if obj.image:
-                    screen.blit(obj.image, (obj.x, obj.y))
-
-        # draw image layers
-        elif isinstance(layer, pytmx.TiledImageLayer):
-            if layer.image:
-                screen.blit(layer.image, (0, 0))
-                
-    return background_color
-
 class Level(pygame.sprite.Sprite):
     """Level composed either by blocks (collidant) and background
     - to use in conjunction with Tiled maps and pytmx -"""
     
     def __init__(self,  filename):
         self.filename = filename
-        self.blocks = self.manage_tiles(self.filename,  type = 'blocks')
-        self.background = self.manage_tiles(self.filename,  type = 'background')
+        tmx_data = load_pygame(self.filename)
+        self.screen = DISPLAYSURF
         
-    def manage_tiles(self,  filename,  type = None):
-        tmx_data = load_pygame(filename)
+        # store blocks and background tiles in group
+        self.blocks = self.manage_tiles(tmx_data,  type = 'blocks')
+        self.background_tile = self.manage_tiles(tmx_data,  type = 'background')
+        
+        # render image layer (as background) first, then object and tile layers
+        self.background = self.render_image_lyr(tmx_data, self.screen)
+        self.render_tiled_lyr(tmx_data, self.screen)
+        self.render_object_lyr(tmx_data, self.screen)
+        
+    def manage_tiles(self,  tmx_data,  type = None):
         # groups that will  contain blocks and background surfaces
         group = pygame.sprite.Group()
         # iterate over all the visible layers of type Tile
@@ -74,4 +43,37 @@ class Level(pygame.sprite.Sprite):
                         background.rect.move_ip(x * tmx_data.tilewidth, y * tmx_data.tileheight)
                         group.add(background)
         return group
+
+    # adapted from https://www.reddit.com/r/pygame/comments/2oxixc/pytmx_tiled/cmrvgz4/
+    def render_image_lyr(self, tmx_data, screen):
+        for layer in tmx_data.visible_layers:
+            # draw image layers
+            if isinstance(layer, pytmx.TiledImageLayer):
+                if layer.image:
+                    background = layer
+                    screen.blit(background.image, (0, 0))
+                    
+        return background
+
+    # adapted from https://www.reddit.com/r/pygame/comments/2oxixc/pytmx_tiled/cmrvgz4/
+    def render_tiled_lyr(self, tmx_data, screen):
+        for layer in tmx_data.visible_layers:
+            # draw map tile layers
+            if isinstance(layer, pytmx.TiledTileLayer):
+                # iterate over the tiles in the layer
+                for x, y, image in layer.tiles():
+                    screen.blit(image, (x * tmx_data.tilewidth, y * tmx_data.tileheight))
+                    
+        return
         
+    # adapted from https://www.reddit.com/r/pygame/comments/2oxixc/pytmx_tiled/cmrvgz4/
+    def render_object_lyr(self, tmx_data, screen):
+        for layer in tmx_data.visible_layers:
+            # draw object layers
+            if isinstance(layer, pytmx.TiledObjectGroup):
+                # iterate over all the objects in the layer
+                for obj in layer:
+                    # some object have an image
+                    if obj.image:
+                        screen.blit(obj.image, (obj.x, obj.y))
+        return
