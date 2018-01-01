@@ -35,12 +35,19 @@ class Hero(Character):
         
         pygame.event.pump() # internally process pygame event handlers
         key=pygame.key.get_pressed()  #checking pressed keys
+        
+        # check for horizontal move
         if key[pygame.K_LEFT]:
             self.dx = -self.speed
             self.rect.move_ip(-self.speed, 0)
         if key[pygame.K_RIGHT]:
             self.dx = +self.speed
             self.rect.move_ip(self.speed, 0)
+            
+        self.collision(collidant)
+        self.dx = 0
+            
+        # check for vertical move
         if key[pygame.K_UP]:
             self.dy = -self.speed
             self.rect.move_ip(0, -self.speed)
@@ -49,6 +56,7 @@ class Hero(Character):
             self.rect.move_ip(0, self.speed)
             
         self.collision(collidant)
+        self.dy = 0
             
     def collision(self,  collidant = pygame.sprite.Group()):
         """check for collision against pygame.sprite.Group()"""
