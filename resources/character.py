@@ -8,7 +8,7 @@ class Character(pygame.sprite.Sprite):
     # Constructor. Pass in the color of the block,
     # and its x and y position
     def __init__(self, color, width, height):
-       super().__init__()
+       super(Character,  self).__init__()
 
        # Create an image of the block, and fill it with a color.
        # This could also be an image loaded from the disk.
@@ -21,7 +21,7 @@ class Character(pygame.sprite.Sprite):
  
 class Hero(Character):
     def __init__(self,  life):
-        super().__init__([255, 0, 0], 5, 5)
+        super(Hero,  self).__init__([255, 0, 0], 5, 5)
         self.life = life
         self.speed = 5
         self.dx = 0

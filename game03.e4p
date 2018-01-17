@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE Project SYSTEM "Project-5.1.dtd">
 <!-- eric project file for project game03 -->
-<!-- Saved: 2017-12-20, 22:38:08 -->
-<!-- Copyright (C) 2017 umbe987, umbertofilippo@tiscali.it -->
+<!-- Saved: 2018-01-01, 17:26:55 -->
+<!-- Copyright (C) 2018 umbe987, umbertofilippo@tiscali.it -->
 <Project version="5.1">
   <Language>en_US</Language>
   <Hash>78cb91b1c9ddfb471c895c7b22d3807cb43ba33e</Hash>
@@ -17,6 +17,7 @@
     <Source>__init__.py</Source>
     <Source>main.py</Source>
     <Source>resources/__init__.py</Source>
+    <Source>resources/camera.py</Source>
     <Source>resources/character.py</Source>
     <Source>resources/game.py</Source>
     <Source>resources/tile_manager.py</Source>
