@@ -1,3 +1,8 @@
+try:
+    import pygame_sdl2
+    pygame_sdl2.import_as_pygame()
+except ImportError:
+    pass
 import pygame,  sys
 from pygame.locals import *
 import resources.character as character

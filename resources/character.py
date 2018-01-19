@@ -1,3 +1,8 @@
+try:
+    import pygame_sdl2
+    pygame_sdl2.import_as_pygame()
+except ImportError:
+    pass
 import pygame
 
 # https://www.pygame.org/docs/ref/sprite.html#pygame.sprite.Sprite

@@ -1,3 +1,8 @@
+try:
+    import pygame_sdl2
+    pygame_sdl2.import_as_pygame()
+except ImportError:
+    pass
 import pytmx,  pygame
 from pytmx.util_pygame import load_pygame
 from resources import *
