@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE Project SYSTEM "Project-5.1.dtd">
 <!-- eric project file for project game03 -->
-<!-- Saved: 2018-01-19, 22:40:44 -->
+<!-- Saved: 2018-01-19, 22:51:18 -->
 <!-- Copyright (C) 2018 umbe987, umbertofilippo@tiscali.it -->
 <Project version="5.1">
   <Language>en_US</Language>
   <Hash>78cb91b1c9ddfb471c895c7b22d3807cb43ba33e</Hash>
-  <ProgLanguage mixed="0">Python3</ProgLanguage>
+  <ProgLanguage mixed="0">Python2</ProgLanguage>
   <ProjectType>Other</ProjectType>
   <Description>Game made with python and pygame</Description>
   <Version>0.1</Version>
