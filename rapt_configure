@@ -1,0 +1,14 @@
+Full Name: game test
+Short Name: game test
+Package Name: org.umbe1987.game_test
+Human-readable Version: 0.1
+Version Code: 10
+Orientation: 1) Landscape
+Expansion APK: 1) No
+Android Version: 3) Android 4.0
+Application Layout: 1) Single directory, device internal storage.
+Include Source Code: no
+Permissions: VIBRATE
+SQlite3: no (may not work)
+PIL: no (may not work)
+
