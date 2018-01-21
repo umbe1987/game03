@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE Project SYSTEM "Project-5.1.dtd">
 <!-- eric project file for project game03 -->
-<!-- Saved: 2018-01-19, 22:51:18 -->
+<!-- Saved: 2018-01-21, 17:21:06 -->
 <!-- Copyright (C) 2018 umbe987, umbertofilippo@tiscali.it -->
 <Project version="5.1">
   <Language>en_US</Language>
@@ -20,7 +20,6 @@
     <Source>resources/camera.py</Source>
     <Source>resources/character.py</Source>
     <Source>resources/game.py</Source>
-    <Source>resources/tile_manager.py</Source>
   </Sources>
   <Forms/>
   <Translations/>
