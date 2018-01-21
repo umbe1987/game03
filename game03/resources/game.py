@@ -6,7 +6,6 @@ except ImportError:
 import pygame,  os
 from pygame.locals import *
 import resources.character as character
-import resources.tile_manager as tile_manager
 from resources import *
 
 # taken from https://github.com/renpytom/rapt-pygame-example/blob/master/main.py
@@ -41,15 +40,15 @@ def game():
     fpsClock = pygame.time.Clock()
     pygame.display.set_caption(TITLE) # set the title in the caption
     
-    # draw Tiled map (.tmx) onto screen and retain background sprite
-    # get blocks and background tiles from Tiled in two distict pygame groups
-    level = tile_manager.Level(MAP)
+    # inizialize screen with black color background
+    screen = pygame.display.set_mode(SCREEN_SIZE)
+    
     # instance of Hero character
     hero = character.Hero(12)
     hero_group = pygame.sprite.Group()
     hero_group.add(hero)
     
-    hero_group.draw(DISPLAYSURF) # draw hero_group onto display Surface
+    hero_group.draw(screen) # draw hero_group onto display Surface
     pygame.display.update()
     
     sleeping = False
@@ -62,19 +61,21 @@ def game():
     while True: # main game loop
         # If not sleeping, draw the screen.
         if not sleeping:
+            screen.fill((0, 0, 0, 255))
+            
             # list to store dirty_rects (argument for pygame.display.update())
             dirty_rects = []
             
             hero_pos = hero.rect.copy() # store hero position before moving
-            DISPLAYSURF.blit(level.background.image, hero_pos, hero_pos)
+            screen.blit(screen, hero_pos, hero_pos)
             
             dirty_rects.append(hero_pos)
             
-            hero.move(level.blocks)
+            hero.move()
             dirty_rects.append(hero.rect)
             
             # pygame.event.pump() # internally process pygame event handlers
-            hero_group.draw(DISPLAYSURF) # draw hero_group onto display Surface
+            hero_group.draw(screen) # draw hero_group onto display Surface
             pygame.display.update(dirty_rects) # Update portions (rect or rect list) of the screen
             
         ev = pygame.event.wait()
@@ -105,7 +106,7 @@ def game():
 
             # For now, we have to re-open the window when entering the
             # foreground.
-            level.screen
+            screen = pygame.display.set_mode(SCREEN_SIZE)
                 
         fpsClock.tick(FPS)
     
